@@ -1,1 +1,3 @@
 # seesee
+
+Claude Code settings
