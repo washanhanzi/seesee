@@ -38,23 +38,13 @@
     "PreToolUse": [
       {
         "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh -c \"TOOL_NAME=$(python3 -c 'import sys, json; data = json.load(sys.stdin); print(data.get(\\\"tool_name\\\", \\\"Unknown\\\"))'); open -g \\\"agentwatch://hook?type=tool-start&pid=$PPID&tool=$(echo \\\"$TOOL_NAME\\\" | sed 's/ /%20/g')\\\"\""
-          }
-        ]
+        "hooks": []
       }
     ],
     "PostToolUse": [
       {
         "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh -c \"TOOL_NAME=$(python3 -c 'import sys, json; data = json.load(sys.stdin); print(data.get(\\\"tool_name\\\", \\\"Unknown\\\"))'); open -g \\\"agentwatch://hook?type=tool-complete&pid=$PPID&tool=$(echo \\\"$TOOL_NAME\\\" | sed 's/ /%20/g')\\\"\""
-          }
-        ]
+        "hooks": []
       }
     ]
   },
