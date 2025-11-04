@@ -1,9 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "feedbackSurveyState": {
-    "lastShownTime": 1754059940347
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "mcp__grep__searchGitHub",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:github.com)"
+    ],
+    "defaultMode": "bypassPermissions"
   },
-  "alwaysThinkingEnabled": true,
   "hooks": {
     "Stop": [
       {
@@ -11,6 +16,43 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/auto-commit.sh"
+          },
+          {
+            "type": "command",
+            "command": "sh -c \"open -g 'agentwatch://hook?type=session-stop&pid=$PPID'\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c \"open -g 'agentwatch://hook?type=prompt-submit&pid=$PPID&pwd=$(pwd | sed 's/ /%20/g')'\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c \"TOOL_NAME=$(python3 -c 'import sys, json; data = json.load(sys.stdin); print(data.get(\\\"tool_name\\\", \\\"Unknown\\\"))'); open -g \\\"agentwatch://hook?type=tool-start&pid=$PPID&tool=$(echo \\\"$TOOL_NAME\\\" | sed 's/ /%20/g')\\\"\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c \"TOOL_NAME=$(python3 -c 'import sys, json; data = json.load(sys.stdin); print(data.get(\\\"tool_name\\\", \\\"Unknown\\\"))'); open -g \\\"agentwatch://hook?type=tool-complete&pid=$PPID&tool=$(echo \\\"$TOOL_NAME\\\" | sed 's/ /%20/g')\\\"\""
           }
         ]
       }
@@ -20,12 +62,8 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "permissions": {
-    "allow": [
-      "WebSearch",
-      "mcp__grep__searchGitHub",
-      "WebFetch(domain:docs.rs)"
-    ],
-    "defaultMode": "bypassPermissions"
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754059940347
   }
 }

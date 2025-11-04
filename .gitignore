@@ -6,3 +6,5 @@ projects/
 shell-snapshots/
 statsig/
 todos/
+
+.DS_Store
