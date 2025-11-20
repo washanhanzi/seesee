@@ -17,6 +17,10 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/auto-commit.sh"
+          },
+          {
+            "type": "command",
+            "command": "ffplay -nodisp -autoexit -loglevel quiet ~/ringtone/arabian-mystery-harp.wav"
           }
         ]
       }
