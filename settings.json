@@ -12,29 +12,16 @@
   "hooks": {
     "Stop": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/auto-commit.sh"
-          },
-          {
-            "type": "command",
-            "command": "sh -c \"open -g 'agentwatch://hook?type=session-stop&pid=$PPID'\""
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c \"open -g 'agentwatch://hook?type=prompt-submit&pid=$PPID&pwd=$(pwd | sed 's/ /%20/g')'\""
+            "command": "~/.claude/hooks/auto-commit.sh"
           }
         ]
       }
     ],
+    "UserPromptSubmit": [],
     "PreToolUse": [
       {
         "matcher": "",
@@ -52,8 +39,5 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "alwaysThinkingEnabled": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754059940347
-  }
+  "alwaysThinkingEnabled": true
 }
