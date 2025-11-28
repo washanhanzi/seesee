@@ -4,7 +4,7 @@
 # Commits changes after file modifications with a WIP message
 
 # Change to the git repository directory
-cd "$CLAUDE_CWD" || exit 0
+cd "$CLAUDE_PROJECT_DIR" || exit 0
 
 # Check if we're in a git repository
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
