@@ -5,7 +5,8 @@
       "WebSearch",
       "mcp__grep__searchGitHub",
       "WebFetch(domain:docs.rs)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "defaultMode": "bypassPermissions"
   },
