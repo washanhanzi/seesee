@@ -8,13 +8,19 @@ current_dir=$(echo "$json" | jq -r '.workspace.current_dir // .cwd // "unknown"'
 dir_name=$(basename "$current_dir")
 
 # Extract context window info from new API
-input_tokens=$(echo "$json" | jq -r '.context_window.total_input_tokens // 0')
-output_tokens=$(echo "$json" | jq -r '.context_window.total_output_tokens // 0')
 context_size=$(echo "$json" | jq -r '.context_window.context_window_size // 200000')
 model=$(echo "$json" | jq -r '.model.display_name // "Claude"')
+current_usage=$(echo "$json" | jq '.context_window.current_usage')
 
-# Calculate total tokens and percentage
-total_tokens=$((input_tokens + output_tokens))
+# Calculate context usage from current_usage (actual context state)
+if [ "$current_usage" != "null" ]; then
+  input_tokens=$(echo "$current_usage" | jq -r '.input_tokens // 0')
+  cache_creation=$(echo "$current_usage" | jq -r '.cache_creation_input_tokens // 0')
+  cache_read=$(echo "$current_usage" | jq -r '.cache_read_input_tokens // 0')
+  total_tokens=$((input_tokens + cache_creation + cache_read))
+else
+  total_tokens=0
+fi
 percent=$((total_tokens * 100 / context_size))
 
 # Format total tokens with k suffix
